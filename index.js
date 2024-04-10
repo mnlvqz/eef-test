@@ -104,11 +104,31 @@ function init() {
   controller = renderer.xr.getController(0);
   controller.addEventListener("select", onSelect);
   scene.add(controller);
-
-  reticle = new THREE.Mesh(
-    new THREE.RingGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
-    new THREE.MeshBasicMaterial()
+  /*
+  const reticleGeometry = new THREE.RingGeometry(0.15, 0.2, 32).rotateX(
+    -Math.PI / 2
   );
+  */
+
+  const reticleGeometry = new THREE.TorusGeometry(0.1, 0.075, 32, 32).rotateX(
+    -Math.PI / 2
+  );
+  reticleGeometry.scale(1.0, 0.1, 1.0);
+
+  const reticleMaterial = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    transparent: true,
+    side: THREE.DoubleSide,
+    alphaTest: 0.5,
+  });
+
+  const alphaMap = new THREE.TextureLoader().load("./textures/alpha.png");
+  reticleMaterial.alphaMap = alphaMap;
+  reticleMaterial.alphaMap.magFilter = THREE.NearestFilter;
+  reticleMaterial.alphaMap.wrapT = THREE.RepeatWrapping;
+  reticleMaterial.alphaMap.repeat.y = 1;
+
+  reticle = new THREE.Mesh(reticleGeometry, reticleMaterial);
   reticle.matrixAutoUpdate = false;
   reticle.visible = false;
   scene.add(reticle);
@@ -172,4 +192,6 @@ function render(timestamp, frame) {
   sculptures.forEach((s) => {
     s.update();
   });
+
+  reticle.material.alphaMap.offset.y += 0.05;
 }
