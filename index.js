@@ -71,23 +71,29 @@ function init() {
         }
       );
       const soundMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(0.1, 0.1, 0.1),
+        new THREE.BoxGeometry(3, 15, 3),
         new THREE.MeshBasicMaterial({ visible: false })
       );
+
       reticle.matrix.decompose(
         soundMesh.position,
         soundMesh.quaternion,
         soundMesh.scale
       );
+      soundMesh.scale.set(1.0, 1.0, 1.0);
+      soundMesh.position.y += 0.75;
+
       soundMesh.add(sound);
+
+      const uScale = Math.random() * 0.1 + 0.05;
 
       sculptures.push(
         new Sculpture(
           [3, 15, 3],
           new THREE.Vector3().setFromMatrixPosition(reticle.matrix),
-          new THREE.Vector3(0.1, 0.1, 0.1),
+          new THREE.Vector3(uScale, uScale, uScale),
           new THREE.Quaternion().setFromRotationMatrix(reticle.matrix),
-          1
+          soundMesh
         )
       );
       sculptures[sculptures.length - 1].addToScene(scene);

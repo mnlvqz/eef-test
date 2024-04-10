@@ -3,9 +3,9 @@ import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js"
 import { PositionalAudio } from "three";
 
 export class Sculpture {
-  constructor(dimensions, position, scale, quaternion, sound) {
+  constructor(dimensions, position, scale, quaternion, soundMesh) {
     this.dimensions = dimensions;
-    this.sound = sound;
+    this.soundMesh = soundMesh;
     this.components = new THREE.Group();
 
     for (let k = 0; k < dimensions[2]; k++) {
@@ -80,11 +80,10 @@ export class Sculpture {
       }
     }
 
-    //removeRandomElements(percentage);
-
     this.components.position.copy(position);
     this.components.scale.copy(scale);
     this.components.quaternion.copy(quaternion);
+    this.soundMesh.scale.copy(scale);
 
     //this.sound.play();
 
@@ -93,6 +92,7 @@ export class Sculpture {
 
   addToScene(scene) {
     scene.add(this.components);
+    scene.add(this.soundMesh);
   }
   update() {
     this.components.children.forEach((component) => {
