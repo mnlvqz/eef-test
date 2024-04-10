@@ -65,7 +65,7 @@ function init() {
         "./sounds/sound-" + soundIndex + ".ogg",
         function (buffer) {
           sound.setBuffer(buffer);
-          sound.setRefDistance(0.1);
+          sound.setRefDistance(1.0);
           sound.setLoop(true);
           sound.play();
         }
@@ -76,7 +76,7 @@ function init() {
           new THREE.Vector3().setFromMatrixPosition(reticle.matrix),
           new THREE.Vector3(0.1, 0.1, 0.1),
           new THREE.Quaternion().setFromRotationMatrix(reticle.matrix),
-          sound
+          1
         )
       );
       sculptures[sculptures.length - 1].addToScene(scene);

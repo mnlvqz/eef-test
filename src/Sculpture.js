@@ -84,7 +84,7 @@ export class Sculpture {
     this.components.scale.copy(scale);
     this.components.quaternion.copy(quaternion);
 
-    this.sound.play();
+    //this.sound.play();
 
     console.log(this.components);
   }
