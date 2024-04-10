@@ -70,6 +70,17 @@ function init() {
           sound.play();
         }
       );
+      const soundMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(0.1, 0.1, 0.1),
+        new THREE.MeshBasicMaterial({ visible: false })
+      );
+      reticle.matrix.decompose(
+        soundMesh.position,
+        soundMesh.quaternion,
+        soundMesh.scale
+      );
+      soundMesh.add(sound);
+
       sculptures.push(
         new Sculpture(
           [3, 15, 3],

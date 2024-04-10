@@ -19,7 +19,7 @@ export class Sculpture {
           );
 
           // Set random element's type
-          let type = Math.floor(Math.random() * 3);
+          let type = Math.floor(Math.random() * 6);
 
           // Create random phong material
           let material = new THREE.MeshPhongMaterial({
@@ -80,6 +80,8 @@ export class Sculpture {
       }
     }
 
+    //removeRandomElements(percentage);
+
     this.components.position.copy(position);
     this.components.scale.copy(scale);
     this.components.quaternion.copy(quaternion);
@@ -90,15 +92,6 @@ export class Sculpture {
   }
 
   addToScene(scene) {
-    /*
-    this.components.children.forEach((component) => {
-      if (component.type === "Sound") {
-        component.children[0].setRefDistance(0.01);
-        component.children[0].setLoop(true);
-        component.children[0].play();
-      }
-    });
-    */
     scene.add(this.components);
   }
   update() {
@@ -116,5 +109,13 @@ export class Sculpture {
         });
       }
     });
+  }
+
+  removeRandomElements(percentage) {
+    const amountToRemove = Math.floor(this.components.length * percentage);
+    for (let i = 0; i < amountToRemove; i++) {
+      const index = Math.floor(Math.random() * this.components.length);
+      this.components.splice(index, 1);
+    }
   }
 }
