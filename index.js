@@ -65,7 +65,7 @@ function init() {
         "./sounds/sound-" + soundIndex + ".ogg",
         function (buffer) {
           sound.setBuffer(buffer);
-          sound.setRefDistance(1.0);
+          sound.setRefDistance(0.1);
           sound.setLoop(true);
           sound.play();
         }
